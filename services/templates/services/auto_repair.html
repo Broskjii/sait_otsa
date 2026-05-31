@@ -1,0 +1,108 @@
+{% extends 'services/base.html' %}
+
+{% block title %}Ремонт автомобилей{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <div class="container text-center">
+        <h1 class="display-4 mb-4">
+            <i class="fas fa-tools"></i> Ремонт автомобилей
+        </h1>
+        <p class="lead">Профессиональный ремонт с гарантией качества</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <!-- Услуги -->
+        <div class="col-lg-7 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title mb-4">Наши услуги</h3>
+                    <ul class="service-list">
+                        {% for service in services %}
+                            <li>{{ service }}</li>
+                        {% endfor %}
+                    </ul>
+                    
+                    <div class="mt-4 p-3 bg-light rounded">
+                        <h5>Почему выбирают нас?</h5>
+                        <ul class="mt-3">
+                            <li>Опытные специалисты</li>
+                            <li>Современное оборудование</li>
+                            <li>Оригинальные запчасти</li>
+                            <li>Гарантия на работы</li>
+                            <li>Доступные цены</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Форма заявки -->
+        <div class="col-lg-5 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title mb-4">Оставить заявку</h3>
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Имя *</label>
+                            {{ form.name }}
+                            {% if form.name.errors %}
+                                <div class="text-danger">{{ form.name.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Телефон *</label>
+                            {{ form.phone }}
+                            {% if form.phone.errors %}
+                                <div class="text-danger">{{ form.phone.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                                <div class="text-danger">{{ form.email.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Описание проблемы *</label>
+                            {{ form.message }}
+                            {% if form.message.errors %}
+                                <div class="text-danger">{{ form.message.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        {{ form.service_type.as_hidden }}
+                        
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fas fa-paper-plane"></i> Отправить заявку
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Контакты -->
+            {% if contact %}
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">Контакты</h5>
+                    <p><i class="fas fa-phone"></i> {{ contact.phone }}</p>
+                    <p><i class="fas fa-envelope"></i> {{ contact.email }}</p>
+                    <p><i class="fas fa-clock"></i> {{ contact.work_hours }}</p>
+                    {% if contact.address %}
+                    <p><i class="fas fa-map-marker-alt"></i> {{ contact.address }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
