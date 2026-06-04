@@ -1,6 +1,6 @@
 {% extends 'services/base.html' %}
 
-{% block title %}Ремонт автомобилей{% endblock %}
+{% block title %}Ремонт автомобилей у Михаила{% endblock %}
 
 {% block content %}
 <div class="hero">
@@ -28,8 +28,7 @@
                     <div class="mt-4 p-3 bg-light rounded">
                         <h5>Почему выбирают нас?</h5>
                         <ul class="mt-3">
-                            <li>Опытные специалисты</li>
-                            <li>Современное оборудование</li>
+                            <li>Опытный специалист</li>
                             <li>Оригинальные запчасти</li>
                             <li>Гарантия на работы</li>
                             <li>Доступные цены</li>
@@ -77,6 +76,11 @@
                             {% if form.message.errors %}
                                 <div class="text-danger">{{ form.message.errors }}</div>
                             {% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Защита от спама: {{ captcha_question }} = ? *</label>
+                            <input type="number" name="captcha" class="form-control" placeholder="Введите ответ" required>
                         </div>
                         
                         {{ form.service_type.as_hidden }}
